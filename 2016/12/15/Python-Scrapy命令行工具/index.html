@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>Python_Scrapy命令行工具 | SateZheng</title><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/normalize/5.0.0/normalize.min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//cdn.bootcss.com/pure/0.6.0/grids-responsive-min.css"><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">Python_Scrapy命令行工具</h1><a id="logo" href="/.">SateZheng</a><p class="description">多读书，多看报，少吃零食，多睡觉</p></div><div id="nav-menu"><a href="/." class="current"><i class="fa fa-home"> 首页</i></a><a href="/archives/"><i class="fa fa-archive"> 归档</i></a><a href="/about/"><i class="fa fa-user"> 关于</i></a></div></div><div id="layout" class="pure-g"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">Python_Scrapy命令行工具</h1><div class="post-meta">Dec 15, 2016<span> | </span><span class="category"><a href="/categories/Python爬虫/">Python爬虫</a></span><script src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js" async></script><span id="busuanzi_container_page_pv"> | <span id="busuanzi_value_page_pv"></span><span> Hits</span></span></div><div class="clear"><div id="toc" class="toc-article"><div class="toc-title">文章目录</div><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目"><span class="toc-number">1.</span> <span class="toc-text">创建项目</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令注解"><span class="toc-number">2.</span> <span class="toc-text">命令注解</span></a></li></ol></div></div><div class="post-content"><p><code>scrapy.cfg</code>存放的目录认定是 <strong>项目的根目录</strong></p>
+<p><code>scrapy</code> 针对不同目的提供了多个命令。</p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scrapy startproject my_pro</div></pre></td></tr></table></figure>
+<p><strong>有些<code>Scrapy</code>命令(比如<code>crawl</code>)要求必须在<code>Scrapy</code>项目中运行，有些则不用</strong></p>
+<figure class="highlight smali"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 全局命令（不需要在项目中执行）：</span></div><div class="line">startproject</div><div class="line">settings</div><div class="line">runspider</div><div class="line">shell</div><div class="line">fetch</div><div class="line">view</div><div class="line">version</div><div class="line"></div><div class="line"><span class="comment"># 项目命令（必须在项目中执行）：</span></div><div class="line">crawl<span class="built_in"></span></div><div class="line">check</div><div class="line">list</div><div class="line">edit</div><div class="line">parse</div><div class="line">genspider</div><div class="line">bench</div></pre></td></tr></table></figure>
+<h3 id="命令注解"><a href="#命令注解" class="headerlink" title="命令注解"></a>命令注解</h3><hr>
+<p><strong><code>startproject</code></strong></p>
+<ul>
+<li>语法:<code>scrapy startproject &lt;project_name&gt;</code></li>
+<li>全局命令</li>
+</ul>
+<p>在 <code>project_name</code> 文件夹下创建一个名为 <code>project_name</code> 的<code>Scrapy</code>项目，如上边例子。</p>
+<hr>
+<p><strong><code>genspider</code></strong></p>
+<ul>
+<li>语法:<code>scrapy genspider [-t template] &lt;name&gt; &lt;domain&gt;</code></li>
+<li>项目命令</li>
+</ul>
+<p>在当前项目中创建<code>spider</code>。</p>
+<p>这仅仅是创建<code>spider</code>的一种快捷方法。该方法可以使用提前定义好的模板来生成<code>spider</code>。您也可以自己创建<code>spider</code>的源码文件。</p>
+<p>查看模板的方法如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 查看模板</span></div><div class="line">$ scrapy genspider -l</div><div class="line">Available <span class="symbol">templates:</span></div><div class="line">  basic</div><div class="line">  crawl</div><div class="line">  csvfeed</div><div class="line">  xmlfeed</div><div class="line"></div><div class="line"><span class="comment"># 编辑模板</span></div><div class="line">$ scrapy genspider -d basic</div><div class="line"><span class="comment"># -*- coding: utf-8 -*-</span></div><div class="line">import scrapy</div><div class="line"></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> $<span class="title">classname</span>(<span class="title">scrapy</span>.<span class="title">Spider</span>):</span></div><div class="line">    name = <span class="string">"$name"</span></div><div class="line">    allowed_domains = [<span class="string">"$domain"</span>]</div><div class="line">    start_urls = (</div><div class="line">        <span class="string">'http://www.$domain/'</span>,</div><div class="line">    )</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">parse</span><span class="params">(<span class="keyword">self</span>, response)</span></span>:</div><div class="line">        pass</div></pre></td></tr></table></figure>
+<p>根据模板来生成<code>spider</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">$ scrapy genspider -t basic sina sina.com</div><div class="line"></div><div class="line">$ scrapy genspider baidu baidu.com</div><div class="line"></div><div class="line">$ scrapy genspider zhihu zhihu.com</div><div class="line"></div><div class="line">$ scrapy list</div><div class="line">baidu</div><div class="line">sina</div><div class="line">zhihu</div><div class="line"></div><div class="line">$ ls my_pro/spiders/</div><div class="line">baidu.py  baidu.pyc  __init__.py  __init__.pyc  sina.py  sina.pyc  zhihu.py  zhihu.pyc</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>crawl</code></strong></p>
+<ul>
+<li>语法:<code>scrapy crawl &lt;spider&gt;</code></li>
+<li>项目命令</li>
+</ul>
+<p>使用<code>spider</code>进行爬取</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 例子</span></div><div class="line"><span class="variable">$ </span>scrapy crawl myspider</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>check</code></strong></p>
+<ul>
+<li>语法:<code>scrapy check [-l] &lt;spider&gt;</code></li>
+<li>项目命令</li>
+</ul>
+<p>运行<code>contract</code>检查。</p>
+<hr>
+<p><strong><code>list</code></strong></p>
+<ul>
+<li>语法:<code>scrapy list</code></li>
+<li>项目命令</li>
+</ul>
+<p>列出当前项目中所有可用的<code>spider</code>。每行输出一个<code>spider</code>。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 例子</span></div><div class="line">$ <span class="keyword">scrapy </span>list</div><div class="line"><span class="keyword">baidu</span></div><div class="line">sina</div><div class="line">zhihu</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>edit</code></strong></p>
+<ul>
+<li>语法:<code>scrapy edit &lt;spider&gt;</code></li>
+<li>项目命令</li>
+</ul>
+<p>使用 <code>EDITOR</code> 中设定的编辑器编辑给定的<code>spider</code></p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta"># 例子</span></div><div class="line">$ scrapy <span class="keyword">edit</span> baidu</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>fetch</code></strong></p>
+<ul>
+<li>语法:<code>scrapy fetch &lt;url&gt;</code></li>
+<li>全局命令或项目命令，但结果不同</li>
+</ul>
+<p>使用<code>Scrapy</code>下载器(<code>downloader</code>)下载给定的<code>URL</code></p>
+<p>该命令以<code>spider</code>下载页面的方式获取页面。例如，如果<code>spider</code>有 <code>USER_AGENT</code> 属性修改了 <code>User Agent</code>，该命令将会使用该属性。</p>
+<p>因此，您可以使用该命令来查看<code>spider</code>如何获取某个特定页面。</p>
+<p>该命令如果非项目中运行则会使用默认<code>Scrapy downloader</code>设定。</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 例子：项目外边执行</span></div><div class="line"></div><div class="line">$ scrapy fetch --nolog --headers http://www.baidu.com</div><div class="line">&gt; Accept-Language: en</div><div class="line">&gt; Accept-Encoding: gzip,deflate</div><div class="line">&gt; Accept: text/html,application/xhtml+xml,application/xml;q=<span class="number">0.9</span>,*/*;q=<span class="number">0.8</span></div><div class="line">&gt; User-Agent: Scrapy/<span class="number">1.1</span><span class="number">.1</span> (+http://scrapy.org)</div><div class="line">&gt;</div><div class="line">&lt; Bdqid: <span class="number">0xfbf98a3b0000db32</span></div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span></div><div class="line"></div><div class="line">$ scrapy fetch --nolog  http://www.baidu.com</div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span></div><div class="line"><span class="keyword">...</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>view</code></strong></p>
+<ul>
+<li>语法:<code>scrapy view &lt;url&gt;</code></li>
+<li>全局命令</li>
+</ul>
+<p>在浏览器中打开给定的<code>URL</code>，并以<code>Scrapy spider</code>获取到的形式展现。 有些时候<code>spider</code>获取到的页面和普通用户看到的并不相同。 因此该命令可以用来检查<code>spider</code>所获取到的页面，并确认这是您所期望的。</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ scrapy <span class="keyword">view</span> http:<span class="comment">//www.baidu.com</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>shell</code></strong></p>
+<ul>
+<li>语法:<code>scrapy shell [url]</code></li>
+<li>全局命令</li>
+</ul>
+<p>以给定的<code>URL</code>(如果给出)或者空(没有给出<code>URL</code>)启动<code>Scrapy shell</code></p>
+<figure class="highlight gams"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">$</span> scrapy shell</div><div class="line"><span class="symbol">$</span> scrapy shell http:<span class="comment">//www.baidu.com</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>parse</code></strong></p>
+<ul>
+<li>语法:<code>scrapy parse &lt;url&gt; [options]</code></li>
+<li>全局命令</li>
+</ul>
+<p>获取给定的<code>URL</code>并使用相应的<code>spider</code>分析处理。如果您提供 <code>--callback</code> 选项，则使用<code>spider</code>的该方法处理，否则使用 <code>parse</code> 。</p>
+<hr>
+<p><strong><code>settings</code></strong></p>
+<ul>
+<li>语法:<code>scrapy settings [options]</code></li>
+<li>全局命令</li>
+</ul>
+<p>获取<code>Scrapy</code>的设定</p>
+<p>在项目中运行时，该命令将会输出项目的设定值，否则输出<code>Scrapy</code>默认设定。</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ <span class="keyword">scrapy </span>settings --get <span class="keyword">BOT_NAME</span></div><div class="line"><span class="keyword">scrapybot</span></div><div class="line">$ <span class="keyword">scrapy </span>settings --get DOWNLOAD_DELAY</div><div class="line"><span class="number">0</span></div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>runspider</code></strong></p>
+<ul>
+<li>语法:<code>scrapy runspider &lt;spider_file.py&gt;</code></li>
+<li>全局命令</li>
+</ul>
+<p>在未创建项目的情况下，运行一个编写在<code>Python</code>文件中的<code>spider</code>。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>scrapy runspider first_mod.py</div></pre></td></tr></table></figure>
+<hr>
+<p><strong><code>bench</code></strong></p>
+<ul>
+<li>语法:<code>scrapy bench</code></li>
+<li>全局命令</li>
+</ul>
+<p><code>Scrapy</code>提供了一个简单的性能测试工具。其创建了一个本地<code>HTTP</code>服务器，并以最大可能的速度进行爬取。 该测试性能工具目的是测试<code>Scrapy</code>在您的硬件上的效率，来获得一个基本的底线用于对比。 其使用了一个简单的<code>spider</code>，仅跟进链接，不做任何处理。</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>scrapy bench</div></pre></td></tr></table></figure></div><script type="text/javascript" src="/js/share.js?v=0.0.0" async></script><a data-url="http://yoursite.com/2016/12/15/Python-Scrapy命令行工具/" data-id="ciwq84pmu002d2n40ctqbjcab" class="article-share-link">分享到</a><div class="tags"><a href="/tags/PythonScrapy/">PythonScrapy</a></div><div class="post-nav"><a href="/2016/12/15/Python-Scrapy入门/" class="pre">Python_Scrapy入门</a><a href="/2016/12/15/Python-网络爬虫初识/" class="next">Python_网络爬虫初识</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><div class="search-form"><input id="local-search-input" placeholder="Search" type="text" name="q" results="0"/><div id="local-search-result"></div></div></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> 分类</i></div><ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Anisble/">Anisble</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Ansible/">Ansible</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Docker/">Docker</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/ELK/">ELK</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Gitlab/">Gitlab</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux/">Linux</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux命令/">Linux命令</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux工具/">Linux工具</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Linux系统/">Linux系统</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Nginx/">Nginx</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python爬虫/">Python爬虫</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/SVN/">SVN</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/Zabbix/">Zabbix</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> 标签</i></div><div class="tagcloud"><a href="/tags/Log/" style="font-size: 15px;">Log</a> <a href="/tags/Ansible/" style="font-size: 15px;">Ansible</a> <a href="/tags/Anisble/" style="font-size: 15px;">Anisble</a> <a href="/tags/ELK/" style="font-size: 15px;">ELK</a> <a href="/tags/Gitlab/" style="font-size: 15px;">Gitlab</a> <a href="/tags/Git/" style="font-size: 15px;">Git</a> <a href="/tags/Gitlab，Git/" style="font-size: 15px;">Gitlab，Git</a> <a href="/tags/Linux/" style="font-size: 15px;">Linux</a> <a href="/tags/inode/" style="font-size: 15px;">inode</a> <a href="/tags/Nginx/" style="font-size: 15px;">Nginx</a> <a href="/tags/Logrotate/" style="font-size: 15px;">Logrotate</a> <a href="/tags/Docker/" style="font-size: 15px;">Docker</a> <a href="/tags/Python模块/" style="font-size: 15px;">Python模块</a> <a href="/tags/VPN/" style="font-size: 15px;">VPN</a> <a href="/tags/PythonScrapy/" style="font-size: 15px;">PythonScrapy</a> <a href="/tags/Python语法/" style="font-size: 15px;">Python语法</a> <a href="/tags/Python爬虫/" style="font-size: 15px;">Python爬虫</a> <a href="/tags/递归/" style="font-size: 15px;">递归</a> <a href="/tags/Tcpdump/" style="font-size: 15px;">Tcpdump</a> <a href="/tags/SVN/" style="font-size: 15px;">SVN</a> <a href="/tags/Strace/" style="font-size: 15px;">Strace</a> <a href="/tags/ssh/" style="font-size: 15px;">ssh</a> <a href="/tags/Zabbix/" style="font-size: 15px;">Zabbix</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> 最新文章</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-Scrapy入门/">Python_Scrapy入门</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-Scrapy命令行工具/">Python_Scrapy命令行工具</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-网络爬虫初识/">Python_网络爬虫初识</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-网络爬虫-cookies操作/">Python_网络爬虫_cookies操作</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-模拟登陆新浪微博/">Python_模拟登录新浪微博</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-request模块/">Python_request模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-random模块/">Python_random模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-psutil模块/">Python_psutil模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-IPy模块/">Python_IPy模块</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/12/15/Python-getpass模块/">Python_getpass模块</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> 友情链接</i></div><ul></ul><a href="https://luxinle.github.io/" title="卢会军的技术博客" target="_blank">卢会军的技术博客</a><ul></ul><a href="http://qinyueming.cc/" title="秦悦明的技术博客" target="_blank">秦悦明的技术博客</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">© <a href="/." rel="nofollow">SateZheng.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a id="rocket" href="#top" class="show"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.pack.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="/css/jquery.fancybox.css?v=0.0.0"><script type="text/javascript" src="/js/search.js?v=0.0.0"></script><script>var search_path = 'search.xml';
+if (search_path.length == 0) {
+   search_path = 'search.xml';
+}
+var path = '/' + search_path;
+searchFunc(path, 'local-search-input', 'local-search-result');
+</script><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
