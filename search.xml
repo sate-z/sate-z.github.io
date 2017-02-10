@@ -4,6 +4,40 @@
   
     
     <entry>
+      <title><![CDATA[Shadowsocks_服务端和客户端]]></title>
+      <url>http://yoursite.com/2017/02/11/Shadowsocks-%E6%9C%8D%E5%8A%A1%E7%AB%AF%E5%92%8C%E5%AE%A2%E6%88%B7%E7%AB%AF/</url>
+      <content type="html"><![CDATA[<h3 id="服务端配置"><a href="#服务端配置" class="headerlink" title="服务端配置"></a>服务端配置</h3><hr>
+<h5 id="环境：-Ubuntu"><a href="#环境：-Ubuntu" class="headerlink" title="环境： Ubuntu"></a>环境： Ubuntu</h5><p>1、 安装<code>pip</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install python-pip</div></pre></td></tr></table></figure>
+<p>2、 安装<code>Shadowsocks</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install shadowsocks</div></pre></td></tr></table></figure>
+<p>3、 运行</p>
+<p><strong>命令启动</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ssserver -p 8388 -k password -m rc4-md5 <span class="_">-d</span> start</div></pre></td></tr></table></figure>
+<p><strong>配置文件启动</strong></p>
+<p>创建<code>/etc/shadowsocks.json</code>文件，写入如下内容：</p>
+<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="string">"server"</span>:<span class="string">"my_server_ip"</span>,</div><div class="line">    <span class="string">"server_port"</span>:<span class="number">8388</span>,</div><div class="line">    <span class="string">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="string">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="string">"password"</span>:<span class="string">"mypassword"</span>,</div><div class="line">    <span class="string">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="string">"method"</span>:<span class="string">"rc4-md5"</span></div><div class="line">&#125;</div><div class="line">注释：</div><div class="line"><span class="symbol">	server:</span> 服务器 IP (IPv4/IPv6)，注意这也将是服务端监听的 IP 地址</div><div class="line"><span class="symbol">	server_port:</span>	服务器端口</div><div class="line"><span class="symbol">	local_port:</span>	本地端端口</div><div class="line"><span class="symbol">	password:</span>	用来加密的密码</div><div class="line"><span class="symbol">	timeout:</span>	超时时间（秒）</div><div class="line">	method	加密方法，可选择 “bf-cfb”, “aes<span class="number">-256</span>-cfb”, “des-cfb”, “rc4″, 等等。</div></pre></td></tr></table></figure>
+<p>安装<code>m2crypto</code>，以支持加密</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt–get install python–m2crypto</div></pre></td></tr></table></figure>
+<p>使用配置文件在后台运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ssserver -c /etc/shadowsocks.json <span class="_">-d</span> start</div></pre></td></tr></table></figure>
+<h3 id="客户端配置"><a href="#客户端配置" class="headerlink" title="客户端配置"></a>客户端配置</h3><hr>
+<p>1、 安装<code>Shadowsocks</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo pip install shadowsocks</div></pre></td></tr></table></figure>
+<p>2、 启动<code>Shadowsocks</code>客户端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sslocal <span class="_">-s</span> my_server_ip -p 8388 -b 127.0.0.1 <span class="_">-l</span> 1080 -k mypassword -m rc4-md5</div></pre></td></tr></table></figure>
+<p>3、 安装<code>genpac</code></p>
+<p><code>genpac</code> 是基于<code>gfwlist</code>的代理自动配置（Proxy Auto-config）文件生成工具，支持自定义规则。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo -H pip install genpac</div></pre></td></tr></table></figure>
+<p>4、 生成<code>pac</code>文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">genpac -p <span class="string">"SOCKS5 127.0.0.1:1080"</span> --gfwlist-proxy=<span class="string">"SOCKS5 127.0.0.1:1080"</span> --output=<span class="string">"autoproxy.pac"</span> --gfwlist-url=<span class="string">"https://raw.githubusercontent.com/gfwlist/gfwlist/master/gfwlist.txt"</span></div></pre></td></tr></table></figure>
+<p>5、 设置全局代理</p>
+<p>在<code>ubuntu</code>中选择系统设置(<code>System Settings</code>) ==&gt; 网络(<code>Network</code>) ==&gt; 网络代理(<code>Network proxy</code>)，方法(Method)选择自动，配置<code>URL</code>填写第4步生成的<code>pac</code>.</p>
+<p><img src="http://7xkm8w.com1.z0.glb.clouddn.com/network_conf.png" alt=""></p>
+]]></content>
+    </entry>
+    
+    <entry>
       <title><![CDATA[Python_paramiko模块]]></title>
       <url>http://yoursite.com/2017/01/16/Python-paramiko%E6%A8%A1%E5%9D%97/</url>
       <content type="html"><![CDATA[<blockquote>
